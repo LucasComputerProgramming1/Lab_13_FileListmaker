@@ -151,7 +151,7 @@ public class SafeInput {
                 done = true;
                 yN = true;
             } else {
-                System.out.println("\n" + getString + "must be 'Y' for yes or 'N' for no");
+                System.out.println("\n" + getString + " must be 'Y' for yes or 'N' for no");
                 System.out.println("Try again!");
                 done = false;
             }

@@ -155,15 +155,26 @@ public class FileListMaker {
 
                 case "V": //VIEW
                     chooser.setCurrentDirectory(workingDirectory);
-                    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-                    {
-                        selectedFile = chooser.getSelectedFile();
-                        file = selectedFile.toPath();
-                        InputStream in = new BufferedInputStream(Files.newInputStream(file, CREATE));
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    try {
+                        chooser.setCurrentDirectory(workingDirectory);
+                        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                            selectedFile = chooser.getSelectedFile();
+                            file = selectedFile.toPath();
+                            InputStream in = new BufferedInputStream(Files.newInputStream(file, CREATE));
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                            list.removeAll(list);
+                            while (reader.ready()) {
+                                String rec = reader.readLine();
+                                list.add(rec);
+                            }
+                            reader.close();
+                            System.out.println("\n\nData file read!");
+                            System.out.println();
+                        }
+                        canEdit = false;
+                    } finally {
+                        break;
                     }
-                    canEdit = false;
-                    break;
 
                 case "Q": //QUIT
                     //For No Save Needed
